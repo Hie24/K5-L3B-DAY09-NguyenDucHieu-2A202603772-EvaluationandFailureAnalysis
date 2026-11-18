@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from math import isfinite
 from pathlib import Path
 
 from lab8.console import utf8_stdio
@@ -44,8 +45,48 @@ def slice_check(pr: dict, base: dict, spec: dict) -> tuple[list[str], list[str]]
       - fail if below "min", or if no_significant_drop and the paired CI over the slice's items
         lies entirely below 0
     Return (blocked ids like "slice:money_movement/pass_rate", report lines)."""
-    # TODO M5
-    return [], []
+    blocked, lines = [], []
+    bs = spec.get("bootstrap", {})
+    for entry in spec.get("slices", []):
+        name, metric = entry["name"], entry["metric"]
+        sid = f"slice:{name}/{metric}"
+        current, previous = per_item(pr, metric, name), per_item(base, metric, name)
+        value, notes, failed = None, [], False
+        if not current or not previous:
+            failed = True
+            notes.append("MISSING: no graded items in PR or baseline slice")
+        elif current.keys() != previous.keys():
+            failed = True
+            notes.append("MISSING: PR and baseline slice item sets differ")
+        elif not all(isfinite(v) for v in [*current.values(), *previous.values()]):
+            failed = True
+            notes.append("MISSING: non-finite slice values")
+        else:
+            # Each item has equal weight even if its number of seed rows differs.
+            value = sum(current.values()) / len(current)
+            if "min" in entry and value < entry["min"]:
+                failed = True
+                notes.append(f"below floor {entry['min']}")
+            if entry.get("no_significant_drop"):
+                keys = sorted(current)
+                if len(keys) < 2 and current != previous:
+                    failed = True
+                    notes.append("MISSING: paired CI requires at least two slice items")
+                else:
+                    delta, low, high = stats.paired_bootstrap(
+                        [current[k] for k in keys], [previous[k] for k in keys],
+                        n_resamples=bs.get("n_resamples", 1000), rng=bs.get("rng", 2027),
+                        confidence=bs.get("confidence", 0.95),
+                    )
+                    notes.append(f"Δ {delta:+.3f} CI [{low:+.3f}, {high:+.3f}]")
+                    if high < 0:
+                        failed = True
+        if failed and entry.get("blocking"):
+            blocked.append(sid)
+        verdict = "BLOCK" if failed and entry.get("blocking") else "warn" if failed else "ok"
+        display = "None" if value is None else f"{value:.4f}"
+        lines.append(f"  {sid:<36} {display:<8} items={len(current)} {'; '.join(notes)} {verdict}")
+    return blocked, lines
 
 
 def check(pr: dict, base: dict, spec: dict, base_spec: dict | None = None) -> tuple[list[str], list[str]]:

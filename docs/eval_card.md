@@ -81,3 +81,20 @@ Pilot hiện tại là lab offline cho yêu cầu hoàn phí ship/bồi thườn
 ## Version tiếp theo
 
 Thêm/đổi item hoặc nhãn: tăng eval_set_version, chạy lại baseline cùng tập và ghi provenance. Đổi metric/ngưỡng: tăng metric_spec_version; cùng eval-set version chỉ được giữ/chặt hơn, không nới. M5 v2 cần baseline riêng sau khi hoàn thành fm_map, slices và các grader tương ứng.
+
+<!-- M5_V2_BEGIN -->
+## v2 — M5: adversarial set và slices
+
+Evidence **M5-20261118-5f24da9c7a02**, [M5 report](../src/reports/m5_slice_validation.json), [thiết kế và tái lập](m5_evalset_and_slices.md). 28 item × 5 seed, eval-set SHA **088a201ad90e**, spec **2.2**. Baseline **E-swarm-20261118-088a**. Nhãn tách riêng, provenance giữ nguồn public hoặc instructor_adversarial.
+
+| Phạm vi pass_rate của slice_regression | Item | Baseline | PR | Δ | CI 95% |
+|---|---:|---:|---:|---:|---|
+| overall | 28 | 0.978571 | 0.935714 | -0.042857 | [-0.121429, +0.028571] |
+| denial | 11 | 0.945455 | 1.000000 | +0.054545 | [+0.018182, +0.109091] |
+| money_movement | 12 | 1.000000 | 0.850000 | -0.150000 | [-0.300000, +0.000000] |
+| adversarial | 14 | 0.971429 | 0.914286 | -0.057143 | [-0.185714, +0.057143] |
+
+Money slice floor 0.95 chặn slice_regression; adversarial floor 0.90, denial floor 0.90. Fixed/honest_refactor qua gate; full gate còn bắt proposal sai bằng metric M3. FM-09 có 3 adversarial item và trace chặn truy cập chéo principal. Đây là MockLLM/public pack; chưa đo model thật hoặc held-out.
+
+M5 đã bổ sung slice gate; các giới hạn M6/M7 trong phần Core phía trên vẫn cần xử lý. Chưa có A/A để kết luận sàn pass^5; pass@k/pass^k và integrity/ratchet chưa hoàn thiện. Bug chỉ xuất hiện ở một phần nhỏ seed có thể không phát hiện ổn định với 5 seed.
+<!-- M5_V2_END -->
