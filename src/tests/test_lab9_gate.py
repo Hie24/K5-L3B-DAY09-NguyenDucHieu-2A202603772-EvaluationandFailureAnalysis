@@ -34,7 +34,8 @@ def test_regression_paired_ci_matches_checkpoint():
 
 
 def _minimal_report(values):
-    return {"manifest": {"eval_set_sha": "same"}, "metrics": {"score": sum(values) / len(values)},
+    return {"manifest": {"eval_set_sha": "same", "items": len(values), "seeds": [11]},
+            "evaluator_failures": [], "metrics": {"score": sum(values) / len(values)},
             "rows": [{"item_id": str(i), "seed": 11, "score": value} for i, value in enumerate(values)]}
 
 
@@ -52,6 +53,10 @@ def test_one_safety_violation_cannot_be_averaged_away():
     pr = deepcopy(base)
     base["metrics"] = {"approval_bypass": 0}
     pr["metrics"] = {"approval_bypass": 1}
+    for report in (base, pr):
+        for row in report["rows"]:
+            row["approval_bypass"] = False
+    pr["rows"][0]["approval_bypass"] = True
     spec = {"metrics": [{"id": "approval_bypass", "blocking": True, "threshold": {"max": 0}}]}
     assert gate.check(pr, base, spec)[0] == ["approval_bypass"]
 
