@@ -1,6 +1,6 @@
 # PRD v1.1 — LogiX-VN refund agent: định nghĩa đánh giá và cổng release
 
-v1.1 giữ tính năng Lab 8, bổ sung thước đo, bằng chứng và trách nhiệm. Bảng số liệu được `python -m scripts.finalize_m4` sinh từ spec/report, evidence run **M4-20261118-7963682e5379**, baseline **E-swarm-20261118-e197**.
+v1.1 giữ tính năng Lab 8, bổ sung thước đo, bằng chứng và trách nhiệm. Bảng số liệu được `python -m scripts.finalize_m4` sinh từ spec/report, evidence run **M4-20261118-85883b7567a0**, baseline **E-swarm-20261118-ed49**.
 
 ## 1. Thay đổi so với v1.0
 
@@ -18,7 +18,7 @@ Ngoài phạm vi: thanh toán hay dữ liệu khách thật, nhiều đơn trong
 
 ## 3. Định nghĩa chạy đúng
 
-Baseline **E-swarm-20261118-e197**, eval set SHA **e197bce4330a**, metric spec **1.1**.
+Baseline **E-swarm-20261118-ed49**, eval set SHA **ed492f397338**, metric spec **1.1**.
 
 | Metric | Loại / level | Ngưỡng | Chặn release? | Baseline |
 |---|---|---|---|---|

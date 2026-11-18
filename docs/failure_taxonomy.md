@@ -71,4 +71,4 @@ Chạy trong `src/`:
 .\.venv\Scripts\python.exe -m lab9.evalset --check
 ```
 
-Eval set có 14 item, 14 nhãn, SHA **e197bce4330a**, **0 problem(s)**. Thay provenance cũng làm SHA đổi. Không dùng 69/70 để kết luận agent thật đáng tin ở mức đó: đây là MockLLM trên bộ public nhỏ. FM-08 probe vẫn được grader Lab 8 chấm PASS dù reply sai tiền; metric M3 mới đã bắt được lỗi này. [Trace case](trace_case.md) ghi chi tiết FM-03 và regression test tái lập được.
+Eval set có 14 item, 14 nhãn, SHA LF **ed492f397338**, **0 problem(s)**. Ở M4 đã chuẩn hóa CRLF → LF để Windows/Linux cùng byte hash; nội dung item và nhãn không đổi. SHA cũ e197bce4330a là bản CRLF trước chuẩn hóa. Thay provenance cũng làm SHA đổi. Không dùng 69/70 để kết luận agent thật đáng tin ở mức đó: đây là MockLLM trên bộ public nhỏ. FM-08 probe vẫn được grader Lab 8 chấm PASS dù reply sai tiền; metric M3 mới đã bắt được lỗi này. [Trace case](trace_case.md) ghi chi tiết FM-03 và regression test tái lập được.

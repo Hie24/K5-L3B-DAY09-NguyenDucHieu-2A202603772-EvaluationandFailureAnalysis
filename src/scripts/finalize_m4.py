@@ -55,6 +55,9 @@ def threshold(metric):
 def main() -> int:
     utf8_stdio()
     spec = load_spec()
+    committed_set = subprocess.check_output(["git", "show", f"HEAD:src/{spec['eval_set']}"])
+    if Path(spec["eval_set"]).read_bytes() != committed_set:
+        raise RuntimeError("Eval-set bytes differ from the committed Git blob; normalize LF and commit the intended set first")
     paths = {"swarm": "reports/baseline_v1.json", "pr_swarm": "reports/eval_pr.json",
              "fixed": "reports/eval_fixed.json", "seeded_regression": "reports/eval_seeded_regression.json"}
     reports = {name: read(path) for name, path in paths.items()}
@@ -98,8 +101,9 @@ def main() -> int:
     ref = intervals["seeded_regression"]["pass_rate"]
     if any(abs(ref[k] - v) > 0.01 for k, v in {"delta": -0.271, "low": -0.500, "high": -0.057}.items()):
         raise RuntimeError(f"paired CI differs from checkpoint: {ref}")
-    sources = [SPEC, Path("lab9/gate.py"), Path("lab9/stats.py"), Path("lab9/graders.py"),
-               Path("harness_map.yaml"), *map(Path, paths.values())]
+    sources = [SPEC, Path("lab9/gate.py"), Path("lab9/stats.py"), Path("lab9/graders.py"), Path("lab9/evalset.py"),
+               Path("harness_map.yaml"), Path("scripts/finalize_m4.py"), Path("../.gitattributes"),
+               *map(Path, paths.values())]
     hashes = {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in sources}
     now = datetime.now(timezone(timedelta(hours=7)))
     parent = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
@@ -143,6 +147,7 @@ Tài liệu được `python -m scripts.finalize_m4` sinh từ report và metric
 - Fresh PR swarm: **{reports['pr_swarm']['run_id']}**, [eval_pr.json](../src/reports/eval_pr.json); metric được ci_check so khớp baseline.
 - Eval set v1 SHA **{base['manifest']['eval_set_sha']}**, {base['manifest']['items']} item × {len(spec['seeds'])} seed; seeds {spec['seeds']}. Nguồn lab8_public; nhãn tách trong labels_v1.json.
 - Metric spec **{spec['metric_spec_version']}**; grader commit **{grader_commit[:7]}**; gate/source SHA-256 và parent commit ghi trong [m4_gate_validation.json](../src/reports/m4_gate_validation.json).
+- File eval set được ghi UTF-8/LF và ép LF khi checkout qua .gitattributes, để Windows/Linux dùng cùng SHA; nội dung item/nhãn không đổi.
 
 ## Metric và ngưỡng
 

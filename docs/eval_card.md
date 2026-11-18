@@ -1,15 +1,16 @@
 # Eval card — LogiX-VN refund agent, Core M0–M4
 
-Tài liệu được `python -m scripts.finalize_m4` sinh từ report và metric spec; không nhập tay số đo. Evidence run **M4-20261118-7963682e5379**, ngày 2026-11-18 (UTC+7).
+Tài liệu được `python -m scripts.finalize_m4` sinh từ report và metric spec; không nhập tay số đo. Evidence run **M4-20261118-85883b7567a0**, ngày 2026-11-18 (UTC+7).
 
 ## Phiên bản và provenance
 
-- Baseline: **E-swarm-20261118-e197**, [baseline_v1.json](../src/reports/baseline_v1.json), shape swarm.
-- Đối chứng fixed: **E-fixed-20261118-e197**, [eval_fixed.json](../src/reports/eval_fixed.json).
-- Regression: **E-seeded_regression-20261118-e197**, [eval_seeded_regression.json](../src/reports/eval_seeded_regression.json).
-- Fresh PR swarm: **E-swarm-20261118-e197**, [eval_pr.json](../src/reports/eval_pr.json); metric được ci_check so khớp baseline.
-- Eval set v1 SHA **e197bce4330a**, 14 item × 5 seed; seeds [11, 22, 33, 44, 55]. Nguồn lab8_public; nhãn tách trong labels_v1.json.
+- Baseline: **E-swarm-20261118-ed49**, [baseline_v1.json](../src/reports/baseline_v1.json), shape swarm.
+- Đối chứng fixed: **E-fixed-20261118-ed49**, [eval_fixed.json](../src/reports/eval_fixed.json).
+- Regression: **E-seeded_regression-20261118-ed49**, [eval_seeded_regression.json](../src/reports/eval_seeded_regression.json).
+- Fresh PR swarm: **E-swarm-20261118-ed49**, [eval_pr.json](../src/reports/eval_pr.json); metric được ci_check so khớp baseline.
+- Eval set v1 SHA **ed492f397338**, 14 item × 5 seed; seeds [11, 22, 33, 44, 55]. Nguồn lab8_public; nhãn tách trong labels_v1.json.
 - Metric spec **1.1**; grader commit **cbbc620**; gate/source SHA-256 và parent commit ghi trong [m4_gate_validation.json](../src/reports/m4_gate_validation.json).
+- File eval set được ghi UTF-8/LF và ép LF khi checkout qua .gitattributes, để Windows/Linux dùng cùng SHA; nội dung item/nhãn không đổi.
 
 ## Metric và ngưỡng
 
@@ -56,7 +57,7 @@ Baseline tự so: exit 0; fresh PR swarm: exit 0; fixed: exit 0; seeded_regressi
 
 Verdict regression: `exit 1 — blocked: refund_amount_correct, pass_rate, reply_amount_correct, proposal_amount_correct`.
 
-Core tests: `64 passed, 317 deselected in 2.70s`. ci_check exit 0. Output CLI nguyên bản nằm trong m4_gate_validation.json.
+Core tests: `65 passed, 317 deselected in 2.90s`. ci_check exit 0. Output CLI nguyên bản nằm trong m4_gate_validation.json.
 
 Gate owner: **Nguyễn Đức Hiếu**, người thực hiện bài cá nhân. Exit 1 thì dừng merge, đọc metric bị chặn và trace, sửa nguyên nhân rồi sinh lại report; không sửa tay JSON hoặc nới sàn để qua gate. PR phải nằm trong [Hie24/K5-L3B-DAY09-NguyenDucHieu-2A202603772-EvaluationandFailureAnalysis](https://github.com/Hie24/K5-L3B-DAY09-NguyenDucHieu-2A202603772-EvaluationandFailureAnalysis/pulls), starter/d09 → main. Trạng thái job thực tế xem [Actions](https://github.com/Hie24/K5-L3B-DAY09-NguyenDucHieu-2A202603772-EvaluationandFailureAnalysis/actions); dấu xanh của detect khi eval-gate bị skip không được tính là nghiệm thu gate.
 

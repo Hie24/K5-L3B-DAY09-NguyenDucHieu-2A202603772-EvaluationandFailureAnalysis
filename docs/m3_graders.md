@@ -2,7 +2,7 @@
 
 M3 triển khai trong [graders.py](../src/lab9/graders.py), đăng ký qua `GRADERS`, cấu hình [metric_spec.yaml](../src/config/metric_spec.yaml) phiên bản **1.1**. Spec v2 mang cùng hai metric bổ sung, phiên bản 2.1; TODO slices/pass-k/integrity của M5–M7 giữ nguyên. Không sửa Lab 8, variant, trap, nhãn hoặc ngưỡng có sẵn.
 
-Bằng chứng: [m3_grader_validation.json](../src/reports/m3_grader_validation.json), run **M3-20261118-f5111af4e493**. Script [collect_m3_evidence.py](../src/scripts/collect_m3_evidence.py) chạy 5 shape, mỗi shape **14 item × 5 seed = 70 trial**, MockLLM và SQLite mới cho từng trial. Các report đều được sinh bằng script và không có evaluator failure.
+Bằng chứng: [m3_grader_validation.json](../src/reports/m3_grader_validation.json), run **M3-20261118-189db83d1b87**. Script [collect_m3_evidence.py](../src/scripts/collect_m3_evidence.py) chạy 5 shape, mỗi shape **14 item × 5 seed = 70 trial**, MockLLM và SQLite mới cho từng trial. Các report được sinh lại khi M4 chuẩn hóa eval set sang LF (SHA ed492f397338); số liệu grader không đổi và không có evaluator failure.
 
 ## Các grader
 
