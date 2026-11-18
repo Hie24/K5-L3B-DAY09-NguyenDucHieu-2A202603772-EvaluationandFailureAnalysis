@@ -1,7 +1,7 @@
 """Generate M5 evidence and its eval-card section from actual v2 trials.
 
 Run from src/: python -m scripts.collect_m5_evidence
-M6 pass-k and M7 integrity remain separate milestones.
+M6 pass-k and M7 integrity are documented as separate milestones.
 """
 
 from __future__ import annotations
@@ -134,6 +134,10 @@ def main() -> int:
     scope_rows = "\n".join(
         f"| {p['claim_id']}@11 | {p['request_principal']} | {p['order_id']} / {p['order_owner']} | event {p['boundary_event']['step']}: outside_principal_scope | {p['result']['status']} / {p['snapshot']['refund_vnd']} |"
         for p in summary["scope_probes"])
+    m6_status = (f"M6 còn metric null: {summary['pending_m6_metrics']}."
+                 if summary["pending_m6_metrics"] else
+                 "M6 pass@k/pass^k đã có số đo; xem [A/A và reliability](m6_noise_and_reliability.md) "
+                 "để kiểm tra ngưỡng blocking và giới hạn cỡ mẫu.")
     document = f"""# M5 — Eval set v2 và slice gate
 
 Report **{run_id}**, [m5_slice_validation.json](../src/reports/m5_slice_validation.json), sinh bằng `python -m scripts.collect_m5_evidence`. Backend MockLLM, SQLite mới cho mỗi trial. Eval set **{len(items)} item × {len(spec['seeds'])} seed**, SHA **{summary['manifest']['eval_set_sha']}**, metric spec **{spec['metric_spec_version']}**.
@@ -190,11 +194,13 @@ Trong src/:
 .\\.venv\\Scripts\\python.exe -m pytest -q -m student -o addopts= -k "(lab9 and not advanced) or (advanced and slice)"
 ```
 
-M5 hoàn thành dataset/mapping/slices. M6 pass_at_k/pass_hat_k vẫn TODO; các metric {summary['pending_m6_metrics']} hiện null, chưa dùng blocking. M7 integrity/ratchet vẫn TODO. Chưa tuyên bố toàn bộ suite Advanced hoặc eval-gate-v2 xanh: workflow đó còn chạy cả M6–M7 khi có baseline_v2. Không sửa Lab 8, pack, variant, trap, nhãn v1 hoặc report bằng tay.
+M5 hoàn thành dataset/mapping/slices. {m6_status} M7 integrity/ratchet vẫn TODO. Chưa tuyên bố toàn bộ suite Advanced hoặc eval-gate-v2 xanh: workflow đó còn chạy cả M6–M7 khi có baseline_v2. Không sửa Lab 8, pack, variant, trap, nhãn v1 hoặc report bằng tay.
 """
     DOCS.joinpath("m5_evalset_and_slices.md").write_text(document, encoding="utf-8", newline="\n")
     card_path = DOCS / "eval_card.md"
-    card = card_path.read_text(encoding="utf-8").split(BEGIN)[0].rstrip()
+    original = card_path.read_text(encoding="utf-8")
+    card = original.split(BEGIN)[0].rstrip()
+    suffix = original.split(END, 1)[1].strip() if END in original else ""
     section = f"""{BEGIN}
 ## v2 — M5: adversarial set và slices
 
@@ -206,10 +212,10 @@ Evidence **{run_id}**, [M5 report](../src/reports/m5_slice_validation.json), [th
 
 Money slice floor 0.95 chặn slice_regression; adversarial floor 0.90, denial floor 0.90. Fixed/honest_refactor qua gate; full gate còn bắt proposal sai bằng metric M3. FM-09 có 3 adversarial item và trace chặn truy cập chéo principal. Đây là MockLLM/public pack; chưa đo model thật hoặc held-out.
 
-M5 đã bổ sung slice gate; các giới hạn M6/M7 trong phần Core phía trên vẫn cần xử lý. Chưa có A/A để kết luận sàn pass^5; pass@k/pass^k và integrity/ratchet chưa hoàn thiện. Bug chỉ xuất hiện ở một phần nhỏ seed có thể không phát hiện ổn định với 5 seed.
+M5 đã bổ sung slice gate. {m6_status} M7 integrity/ratchet còn lại. Bug chỉ xuất hiện ở một phần nhỏ seed có thể không phát hiện ổn định với 5 seed.
 {END}
 """
-    card_path.write_text(card + "\n\n" + section, encoding="utf-8", newline="\n")
+    card_path.write_text(card + "\n\n" + section + ("\n" + suffix + "\n" if suffix else ""), encoding="utf-8", newline="\n")
     print(f"{run_id}: passed={summary['passed']}, blocked={summary['reports']['slice_regression']['blocked']}", flush=True)
     print("wrote reports/m5_slice_validation.json, docs/m5_evalset_and_slices.md and eval-card v2 section", flush=True)
     return 0 if summary["passed"] else 1

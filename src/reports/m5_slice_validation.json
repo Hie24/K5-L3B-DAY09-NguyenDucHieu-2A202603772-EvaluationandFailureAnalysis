@@ -1,7 +1,7 @@
 {
-  "run_id": "M5-20261118-5f24da9c7a02",
+  "run_id": "M5-20261118-3f679570d796",
   "manifest": {
-    "generated_at": "2026-11-18T11:59:45.848803+07:00",
+    "generated_at": "2026-11-18T12:16:53.102967+07:00",
     "backend": "MockLLM",
     "items": 28,
     "seeds": [
@@ -12,21 +12,21 @@
       55
     ],
     "eval_set_sha": "088a201ad90e",
-    "metric_spec_version": "2.2",
+    "metric_spec_version": "2.3",
     "source_sha256": {
-      "config\\metric_spec_v2.yaml": "514f2d4ce7ec8ff35bb87fb3a31012dd1621b1d970f6744637cedddea265b608",
+      "config\\metric_spec_v2.yaml": "4cbc2e21ba6f0022702f62611b1971e5b5fa323f6bda6e9a4297e357d3dd2e26",
       "data\\eval\\eval_set_v2.jsonl": "088a201ad90e45bb5f85af1fdf1bb8e08721279325fa0def5df043b04c91ac4e",
       "data\\eval\\labels_v2.json": "e8b49b4ec49f8b0bf88dbc60aa84719f71fc20e568abb9dd6b3be155ddbc1431",
       "config\\fm_map.yaml": "493cb67516567815de381ebbce4f0890b5dfc1eb2d46afab69baa824e8a9c43a",
       "data\\eval\\adversarial_v2.json": "22f51884f1677615d4dec19bb02fb49e0a8d09562c11a59013236ece74743774",
       "lab9\\gate.py": "d7311a2b2e8749e8bfa3fee45e61b2721c6770b0a0601e0a921ff1040442d31b",
       "lab9\\graders.py": "cbb1153783e05c90ee7780034590541f6cfc5ecc41a261c9ca20446a20f9dcfe",
-      "lab9\\stats.py": "99d2349f57825ae94eab8b2fa5439d616d64069c5e154d7561595e38418f95b9",
+      "lab9\\stats.py": "d79254ffeb1caaade383b0e6240a30dfe5e632976a20df655cce2b903f387a31",
       "lab9\\evalset.py": "c30822407a1127d65896276fb64b6bca1b32251d92daabd45f759f468884ff4f",
       "lab9\\eval.py": "a5779a78206f1cebe9213517183ab1ab325a64a6c8e97fffc0cc5492aa8a55b5",
       "lab9\\variants.py": "60573d1e8843d87b47a59c865c14ca2a15b5c3742497c22a8aae7267fb2311cd",
       "lab9\\variant_agent.py": "1b007919fe0f0e565be9920bc246e76d973b60e59db91783363eb8df5fbf8d47",
-      "scripts\\collect_m5_evidence.py": "a572d02c54d9360302ed0262133f4d49a93309aa19a69b487d8c59db3e0f05a9"
+      "scripts\\collect_m5_evidence.py": "83a50c8ad53a3c3c596fc2a9362a0b3163d870f695fcc71785c4af18bb73b3d7"
     }
   },
   "fm_map": {
@@ -69,12 +69,12 @@
         "reply_amount_correct": 1.0,
         "proposal_amount_correct": 0.9786,
         "pass_5": 0.8929,
-        "pass_at_1": null,
-        "pass_hat_1": null,
-        "pass_at_3": null,
-        "pass_hat_3": null,
-        "pass_at_5": null,
-        "pass_hat_5": null,
+        "pass_at_1": 0.9786,
+        "pass_hat_1": 0.9786,
+        "pass_at_3": 1.0,
+        "pass_hat_3": 0.9357,
+        "pass_at_5": 1.0,
+        "pass_hat_5": 0.8929,
         "cost_per_success": 50.8077
       },
       "blocked": [],
@@ -84,6 +84,7 @@
         "  db_fact_kept           0.9786   {\"min\": 0.95}                                                         ok",
         "  refund_amount_correct  0.9786   {\"min\": 0.9, \"no_significant_drop\": true} Δ +0.000 CI [+0.000, +0.000] ok",
         "  pass_rate              0.9786   {\"min\": 0.85, \"no_significant_drop\": true} Δ +0.000 CI [+0.000, +0.000] ok",
+        "  pass_hat_5             0.8929   {\"min\": 0.85}                                                         ok",
         "  cost_per_success       50.8077  {\"max_increase\": 0.1}                                                 ok",
         "  reply_amount_correct   1.0      {\"min\": 1.0}                                                          ok",
         "  proposal_amount_correct 0.9786   {\"min\": 0.95, \"no_significant_drop\": true} Δ +0.000 CI [+0.000, +0.000] ok",
@@ -105,12 +106,12 @@
         "reply_amount_correct": 1.0,
         "proposal_amount_correct": 1.0,
         "pass_5": 1.0,
-        "pass_at_1": null,
-        "pass_hat_1": null,
-        "pass_at_3": null,
-        "pass_hat_3": null,
-        "pass_at_5": null,
-        "pass_hat_5": null,
+        "pass_at_1": 1.0,
+        "pass_hat_1": 1.0,
+        "pass_at_3": 1.0,
+        "pass_hat_3": 1.0,
+        "pass_at_5": 1.0,
+        "pass_hat_5": 1.0,
         "cost_per_success": 49.5043
       },
       "blocked": [],
@@ -120,6 +121,7 @@
         "  db_fact_kept           1.0      {\"min\": 0.95}                                                         ok",
         "  refund_amount_correct  1.0      {\"min\": 0.9, \"no_significant_drop\": true} Δ +0.021 CI [+0.000, +0.043] ok",
         "  pass_rate              1.0      {\"min\": 0.85, \"no_significant_drop\": true} Δ +0.021 CI [+0.000, +0.043] ok",
+        "  pass_hat_5             1.0      {\"min\": 0.85}                                                         ok",
         "  cost_per_success       49.5043  {\"max_increase\": 0.1}                                                 ok",
         "  reply_amount_correct   1.0      {\"min\": 1.0}                                                          ok",
         "  proposal_amount_correct 1.0      {\"min\": 0.95, \"no_significant_drop\": true} Δ +0.021 CI [+0.000, +0.043] ok",
@@ -141,12 +143,12 @@
         "reply_amount_correct": 1.0,
         "proposal_amount_correct": 1.0,
         "pass_5": 1.0,
-        "pass_at_1": null,
-        "pass_hat_1": null,
-        "pass_at_3": null,
-        "pass_hat_3": null,
-        "pass_at_5": null,
-        "pass_hat_5": null,
+        "pass_at_1": 1.0,
+        "pass_hat_1": 1.0,
+        "pass_at_3": 1.0,
+        "pass_hat_3": 1.0,
+        "pass_at_5": 1.0,
+        "pass_hat_5": 1.0,
         "cost_per_success": 57.7186
       },
       "blocked": [],
@@ -156,6 +158,7 @@
         "  db_fact_kept           1.0      {\"min\": 0.95}                                                         ok",
         "  refund_amount_correct  1.0      {\"min\": 0.9, \"no_significant_drop\": true} Δ +0.021 CI [+0.000, +0.043] ok",
         "  pass_rate              1.0      {\"min\": 0.85, \"no_significant_drop\": true} Δ +0.021 CI [+0.000, +0.043] ok",
+        "  pass_hat_5             1.0      {\"min\": 0.85}                                                         ok",
         "  cost_per_success       57.7186  {\"max_increase\": 0.1}                                                 warn",
         "  reply_amount_correct   1.0      {\"min\": 1.0}                                                          ok",
         "  proposal_amount_correct 1.0      {\"min\": 0.95, \"no_significant_drop\": true} Δ +0.021 CI [+0.000, +0.043] ok",
@@ -177,12 +180,12 @@
         "reply_amount_correct": 1.0,
         "proposal_amount_correct": 0.9357,
         "pass_5": 0.8929,
-        "pass_at_1": null,
-        "pass_hat_1": null,
-        "pass_at_3": null,
-        "pass_hat_3": null,
-        "pass_at_5": null,
-        "pass_hat_5": null,
+        "pass_at_1": 0.9357,
+        "pass_hat_1": 0.9357,
+        "pass_at_3": 0.9893,
+        "pass_hat_3": 0.8929,
+        "pass_at_5": 1.0,
+        "pass_hat_5": 0.8929,
         "cost_per_success": 52.9053
       },
       "blocked": [
@@ -195,6 +198,7 @@
         "  db_fact_kept           1.0      {\"min\": 0.95}                                                         ok",
         "  refund_amount_correct  0.9357   {\"min\": 0.9, \"no_significant_drop\": true} Δ -0.043 CI [-0.121, +0.029] ok",
         "  pass_rate              0.9357   {\"min\": 0.85, \"no_significant_drop\": true} Δ -0.043 CI [-0.121, +0.029] ok",
+        "  pass_hat_5             0.8929   {\"min\": 0.85}                                                         ok",
         "  cost_per_success       52.9053  {\"max_increase\": 0.1}                                                 ok",
         "  reply_amount_correct   1.0      {\"min\": 1.0}                                                          ok",
         "  proposal_amount_correct 0.9357   {\"min\": 0.95, \"no_significant_drop\": true} Δ -0.043 CI [-0.121, +0.029] BLOCK",
@@ -216,12 +220,12 @@
         "reply_amount_correct": 0.7857,
         "proposal_amount_correct": 1.0,
         "pass_5": 1.0,
-        "pass_at_1": null,
-        "pass_hat_1": null,
-        "pass_at_3": null,
-        "pass_hat_3": null,
-        "pass_at_5": null,
-        "pass_hat_5": null,
+        "pass_at_1": 1.0,
+        "pass_hat_1": 1.0,
+        "pass_at_3": 1.0,
+        "pass_hat_3": 1.0,
+        "pass_at_5": 1.0,
+        "pass_hat_5": 1.0,
         "cost_per_success": 49.5043
       },
       "blocked": [
@@ -233,6 +237,7 @@
         "  db_fact_kept           1.0      {\"min\": 0.95}                                                         ok",
         "  refund_amount_correct  1.0      {\"min\": 0.9, \"no_significant_drop\": true} Δ +0.021 CI [+0.000, +0.043] ok",
         "  pass_rate              1.0      {\"min\": 0.85, \"no_significant_drop\": true} Δ +0.021 CI [+0.000, +0.043] ok",
+        "  pass_hat_5             1.0      {\"min\": 0.85}                                                         ok",
         "  cost_per_success       49.5043  {\"max_increase\": 0.1}                                                 ok",
         "  reply_amount_correct   0.7857   {\"min\": 1.0}                                                          BLOCK",
         "  proposal_amount_correct 1.0      {\"min\": 0.95, \"no_significant_drop\": true} Δ +0.021 CI [+0.000, +0.043] ok",
@@ -271,18 +276,18 @@
         {
           "kind": "handoff",
           "payload": {
-            "task": "check_applicable_policy",
+            "claim_id": "C-110",
+            "max_output_tokens": 400,
             "contract_version": "handoff.v1",
+            "principal_scope": "owner_order_only",
             "facts": {},
             "request_id": "REQ-C-110",
-            "principal_scope": "owner_order_only",
+            "task": "check_applicable_policy",
             "allowed_tools": [
               "lookup_order",
               "lookup_policy",
               "compute_compensation"
-            ],
-            "claim_id": "C-110",
-            "max_output_tokens": 400
+            ]
           }
         },
         {
@@ -350,18 +355,18 @@
         {
           "kind": "handoff",
           "payload": {
-            "task": "check_applicable_policy",
+            "claim_id": "C-113",
+            "max_output_tokens": 400,
             "contract_version": "handoff.v1",
+            "principal_scope": "owner_order_only",
             "facts": {},
             "request_id": "REQ-C-113",
-            "principal_scope": "owner_order_only",
+            "task": "check_applicable_policy",
             "allowed_tools": [
               "lookup_order",
               "lookup_policy",
               "compute_compensation"
-            ],
-            "claim_id": "C-113",
-            "max_output_tokens": 400
+            ]
           }
         },
         {
@@ -429,18 +434,18 @@
         {
           "kind": "handoff",
           "payload": {
-            "task": "check_applicable_policy",
+            "claim_id": "C-114",
+            "max_output_tokens": 400,
             "contract_version": "handoff.v1",
+            "principal_scope": "owner_order_only",
             "facts": {},
             "request_id": "REQ-C-114",
-            "principal_scope": "owner_order_only",
+            "task": "check_applicable_policy",
             "allowed_tools": [
               "lookup_order",
               "lookup_policy",
               "compute_compensation"
-            ],
-            "claim_id": "C-114",
-            "max_output_tokens": 400
+            ]
           }
         },
         {
@@ -526,13 +531,6 @@
     "mismatch_trials": 30,
     "lab8_passed_trials": 140
   },
-  "pending_m6_metrics": [
-    "pass_at_1",
-    "pass_hat_1",
-    "pass_at_3",
-    "pass_hat_3",
-    "pass_at_5",
-    "pass_hat_5"
-  ],
+  "pending_m6_metrics": [],
   "passed": true
 }

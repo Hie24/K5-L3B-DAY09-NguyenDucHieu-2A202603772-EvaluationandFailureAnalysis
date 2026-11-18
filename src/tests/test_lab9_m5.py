@@ -12,10 +12,12 @@ pytestmark = pytest.mark.student
 def report(values, *, name="money_movement", outside=()):
     rows = [{"item_id": f"I-{i}", "seed": seed, "pass_rate": value, "slices": [name]}
             for i, outcomes in enumerate(values) for seed, value in enumerate(outcomes)]
-    rows += [{"item_id": f"O-{i}", "seed": 0, "pass_rate": value, "slices": []}
-             for i, value in enumerate(outside)]
-    return {"manifest": {"eval_set_sha": "same"}, "rows": rows,
-            "metrics": {"pass_rate": sum(r["pass_rate"] for r in rows) / len(rows)}}
+    rows += [{"item_id": f"O-{i}", "seed": seed, "pass_rate": value, "slices": []}
+             for i, value in enumerate(outside) for seed in range(len(values[0]))]
+    return {"manifest": {"eval_set_sha": "same", "items": len(values) + len(outside),
+                         "seeds": sorted({r['seed'] for r in rows})},
+            "rows": rows, "evaluator_failures": [],
+            "metrics": {"pass_rate": round(sum(r["pass_rate"] for r in rows) / len(rows), 4)}}
 
 
 def spec(**kwargs):

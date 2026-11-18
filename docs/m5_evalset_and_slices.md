@@ -1,6 +1,6 @@
 # M5 — Eval set v2 và slice gate
 
-Report **M5-20261118-5f24da9c7a02**, [m5_slice_validation.json](../src/reports/m5_slice_validation.json), sinh bằng `python -m scripts.collect_m5_evidence`. Backend MockLLM, SQLite mới cho mỗi trial. Eval set **28 item × 5 seed**, SHA **088a201ad90e**, metric spec **2.2**.
+Report **M5-20261118-3f679570d796**, [m5_slice_validation.json](../src/reports/m5_slice_validation.json), sinh bằng `python -m scripts.collect_m5_evidence`. Backend MockLLM, SQLite mới cho mỗi trial. Eval set **28 item × 5 seed**, SHA **088a201ad90e**, metric spec **2.3**.
 
 ## Dataset, provenance và mapping
 
@@ -70,4 +70,4 @@ Trong src/:
 .\.venv\Scripts\python.exe -m pytest -q -m student -o addopts= -k "(lab9 and not advanced) or (advanced and slice)"
 ```
 
-M5 hoàn thành dataset/mapping/slices. M6 pass_at_k/pass_hat_k vẫn TODO; các metric ['pass_at_1', 'pass_hat_1', 'pass_at_3', 'pass_hat_3', 'pass_at_5', 'pass_hat_5'] hiện null, chưa dùng blocking. M7 integrity/ratchet vẫn TODO. Chưa tuyên bố toàn bộ suite Advanced hoặc eval-gate-v2 xanh: workflow đó còn chạy cả M6–M7 khi có baseline_v2. Không sửa Lab 8, pack, variant, trap, nhãn v1 hoặc report bằng tay.
+M5 hoàn thành dataset/mapping/slices. M6 pass@k/pass^k đã có số đo; xem [A/A và reliability](m6_noise_and_reliability.md) để kiểm tra ngưỡng blocking và giới hạn cỡ mẫu. M7 integrity/ratchet vẫn TODO. Chưa tuyên bố toàn bộ suite Advanced hoặc eval-gate-v2 xanh: workflow đó còn chạy cả M6–M7 khi có baseline_v2. Không sửa Lab 8, pack, variant, trap, nhãn v1 hoặc report bằng tay.
